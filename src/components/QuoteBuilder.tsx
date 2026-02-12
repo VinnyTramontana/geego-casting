@@ -97,8 +97,12 @@ export default function QuoteBuilder() {
       const res = await fetch("/api/prices");
       if (!res.ok) throw new Error("Failed to fetch prices");
       const data = await res.json();
-      setPrices({ XAU: data.XAU, XAG: data.XAG, XPT: data.XPT });
-      setDemoMode(!!data.demo);
+      setPrices({
+        XAU: data.prices.XAU,
+        XAG: data.prices.XAG,
+        XPT: data.prices.XPT,
+      });
+      setDemoMode(!!data.demoMode);
       setPriceError(null);
     } catch {
       setPriceError("Unable to fetch live metal prices. Retrying...");

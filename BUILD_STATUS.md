@@ -53,28 +53,14 @@
 | `Header.tsx` | Complete | Sticky nav, mobile hamburger, logo |
 | `Footer.tsx` | Complete | Links, contact info, copyright |
 | `PriceTicker.tsx` | Complete | Gold/Silver/Platinum per oz + per g, demo mode banner, 60s refresh |
-| `QuoteBuilder.tsx` | Complete | Full orchestration: upload, config, results, payment flow |
-
----
-
-## Partially Complete / Has Dependencies on Missing Files
-
-### QuoteBuilder.tsx
-- Imports `QuoteResults` component — **file does not exist yet**
-- Dynamically imports `PDFQuote` component — **file does not exist yet**
-- Will fail to compile until both are created
-
-### `src/app/page.tsx`
-- Imports `QuoteBuilder` — exists, but won't compile until QuoteResults/PDFQuote are created
+| `QuoteBuilder.tsx` | Complete | Full orchestration: upload, config, results, payment flow. Fixed price API parsing. |
+| `QuoteResults.tsx` | Complete | Per-part table with all columns, full totals breakdown, meta info, demo mode notice |
+| `PDFQuote.tsx` | Complete | @react-pdf/renderer PDF with parts table, all fees, disclaimer. Dynamic import + download. |
+| `STLViewer.tsx` | Complete | Three.js viewer: binary + ASCII STL, orbit controls, gold material, auto-fit camera |
 
 ---
 
 ## Not Implemented Yet
-
-### Missing UI Components
-- [ ] `src/components/QuoteResults.tsx` — per-part table + totals breakdown display
-- [ ] `src/components/PDFQuote.tsx` — PDF generation with @react-pdf/renderer
-- [ ] `src/components/STLViewer.tsx` — Three.js in-browser STL preview (optional per spec)
 
 ### Missing Pages
 - [ ] `src/app/contact/page.tsx`
@@ -112,8 +98,8 @@
 | Prisma schema | 1/1 | Migration not run |
 | Core libraries | 10/10 | — |
 | API routes | 9/9 | — |
-| UI components | 4/7 | QuoteResults, PDFQuote, STLViewer |
+| UI components | **7/7** | **All complete** |
 | Pages | 1/10 | 9 pages missing |
 | Tests | 0/3 | All missing |
 | Config files | 0/3 | .env.example, vercel.json, README |
-| **Overall** | **~55%** | Components, pages, tests, config |
+| **Overall** | **~65%** | Pages, tests, config |
