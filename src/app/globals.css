@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #D4B85A;
+  --dark-bg: #0f0f1a;
+  --card-bg: #1a1a2e;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--dark-bg); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+input[type="number"], input[type="text"], input[type="password"], textarea, select {
+  background-color: #1a1a2e;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #C9A84C;
+  box-shadow: 0 0 0 1px #C9A84C;
+}

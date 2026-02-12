@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model QuoteEvent {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  fileCount      Int
+  totalQuantity  Int
+  selectedMetal  String
+  unit           String
+  demoMode       Boolean  @default(false)
+  spotPricesUsed String   // JSON string
+  settings       String   // JSON string
+  perPart        String   // JSON string array
+  totals         String   // JSON string
+}
+
+model Order {
+  id                 String    @id @default(uuid())
+  createdAt          DateTime  @default(now())
+  selectedMetal      String
+  unit               String
+  productionNotes    String    @default("")
+  customerEmail      String    @default("")
+  shippingName       String    @default("")
+  shippingAddress1   String    @default("")
+  shippingAddress2   String    @default("")
+  shippingCity       String    @default("")
+  shippingState      String    @default("")
+  shippingZip        String    @default("")
+  shippingCountry    String    @default("")
+  totalUsd           Float
+  paymentStatus      String    @default("PENDING")
+  stripeSessionId    String    @default("")
+  fileMetadata       String    @default("[]") // JSON string
+  quoteData          String    @default("{}") // JSON string - full quote breakdown
+  castingEmailSentAt DateTime?
+}
+
+model MonthlyReport {
+  id       String   @id @default(uuid())
+  monthKey String   @unique
+  sentAt   DateTime @default(now())
+  totals   String   // JSON string
+}
