@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Geego Casting
+
+Investment casting quote & order platform built with Next.js, Prisma, and PostgreSQL.
+
+## Prerequisites
+
+- Node.js 18+
+- PostgreSQL 14+
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set at minimum:
+
+- `DATABASE_URL` — PostgreSQL connection string (e.g. `postgresql://user:password@localhost:5432/geego_casting?schema=public`)
+- `ADMIN_PASSWORD` — password for the `/admin` dashboard
+
+See `.env.example` for all available variables.
+
+### 3. Set up the database
+
+```bash
+# Create the initial migration and apply it
+npx prisma migrate dev --name init
+
+# (Or in production, apply existing migrations)
+npx prisma migrate deploy
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Migrations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate) with PostgreSQL.
 
-## Learn More
+```bash
+# Create a new migration after editing prisma/schema.prisma
+npx prisma migrate dev --name describe_your_change
 
-To learn more about Next.js, take a look at the following resources:
+# Apply migrations in production
+npx prisma migrate deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Open Prisma Studio to browse data
+npx prisma studio
+```
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy is via the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Make sure to:
+1. Provision a PostgreSQL database (e.g. Vercel Postgres, Neon, Supabase, or Railway)
+2. Set `DATABASE_URL` in your Vercel environment variables
+3. Add a build command or postinstall script that runs `npx prisma migrate deploy`
