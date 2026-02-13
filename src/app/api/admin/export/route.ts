@@ -3,6 +3,21 @@ import { verifyAdmin } from "@/lib/admin";
 import { ExportQuerySchema } from "@/lib/validation";
 import prisma from "@/lib/prisma";
 
+interface OrderRow {
+  id: string;
+  createdAt: Date;
+  customerEmail: string;
+  selectedMetal: string;
+  totalUsd: number;
+  paymentStatus: string;
+  quoteData: string;
+}
+
+interface QuotePartEntry {
+  quantity?: number;
+  effectiveMassG?: number;
+}
+
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
@@ -27,11 +42,11 @@ export async function GET(request: NextRequest) {
     });
 
     const headers = ["Order ID", "Date", "Customer Email", "Metal", "Total Qty", "Total Grams", "Total USD", "Payment Status"];
-    const rows = orders.map((o) => {
+    const rows = orders.map((o: OrderRow) => {
       let totalQty = 0;
       let totalGrams = 0;
       try {
-        const qd = JSON.parse(o.quoteData);
+        const qd = JSON.parse(o.quoteData) as { perPart?: QuotePartEntry[] };
         if (qd.perPart) {
           for (const p of qd.perPart) {
             totalQty += p.quantity || 0;
