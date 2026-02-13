@@ -36,10 +36,10 @@ export async function GET(request: NextRequest) {
     const startDate = new Date(year, mon - 1, 1);
     const endDate = new Date(year, mon, 1);
 
-    const orders: OrderRow[] = await prisma.order.findMany();
-      where: { createdAt: { gte: startDate, lt: endDate } },
-      orderBy: { createdAt: "asc" },
-    })) as OrderRow[];
+   const orders = (await prisma.order.findMany({
+  where: { createdAt: { gte: startDate, lt: endDate } },
+  orderBy: { createdAt: "asc" },
+})) as OrderRow[];
 
     const headers = ["Order ID", "Date", "Customer Email", "Metal", "Total Qty", "Total Grams", "Total USD", "Payment Status"];
     const rows = orders.map((o: OrderRow) => {
